@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure for a tree node
+typedef struct TreeNode {
+    int value;            // Value of the node
+    struct TreeNode* left;  // Pointer to the left child
+    struct TreeNode* right; // Pointer to the right child
+} TreeNode;
+
+// Function to create a new tree node
+TreeNode* createNode(int value) {
+    TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
+    if (newNode == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+    newNode->value = value;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+// Function to perform in-order traversal of the tree
+void inOrderTraversal(TreeNode* node) {
+    if (node == NULL) return;
+    inOrderTraversal(node->left);
+    printf("%d ", node->value);
+    inOrderTraversal(node->right);
+}
+
+int main() {
+    // Create nodes
+    TreeNode* root = createNode(10);
+    TreeNode* leftChild = createNode(5);
+    TreeNode* rightChild = createNode(15);
+
+    // Build the tree structure
+    root->left = leftChild;
+    root->right = rightChild;
+
+    // Print the tree
+    printf("In-order traversal of the tree: ");
+    inOrderTraversal(root);
+    printf("\n");
+
+    // Clean up (free memory)
+    free(root);
+    free(leftChild);
+    free(rightChild);
+
+    return 0;
+}
